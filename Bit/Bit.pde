@@ -21,14 +21,7 @@ public void setup(){
 }
   
 public void draw(){
-  background(200);
-  stroke(100);
-  fill(255,255,255);
-  for (int i = 0; i < map.length; i++) {
-    for (int j = 0; j < map[0].length; j++) {
-      square(80*j, 80*i, 80);
-    }
-  }
+  grid();
   drawPlayer();
   drawMap();
   if (frameCount % spd == 0) {
@@ -41,6 +34,18 @@ public void draw(){
           
 //  }
 //}
+
+void grid(){
+  background(200);
+  stroke(100);
+  fill(255,255,255);
+  for (int i = 0; i < map.length; i++) {
+    for (int j = 0; j < map[0].length; j++) {
+      square(80*j, 80*i, 80);
+    }
+  }
+}
+
 
 void drawPlayer(){
   
@@ -55,10 +60,10 @@ void drawMap(){
 }
 
 void keyPressed(){
-  if (key == 'w') dir = new PVector(0, -40);
-  if (key == 's') dir = new PVector(0, 40);
-  if (key == 'a') dir = new PVector(-40, 0);
-  if (key == 'd') dir = new PVector(40, 0);
+  if (key == 'w') dir = new PVector(0, -1);
+  if (key == 's') dir = new PVector(0, 1);
+  if (key == 'a') dir = new PVector(-1, 0);
+  if (key == 'd') dir = new PVector(1, 0);
 }
 
 if(
