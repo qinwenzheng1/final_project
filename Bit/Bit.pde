@@ -1,10 +1,4 @@
 public int[][] map = new int[12][12];
-PVector player1;
-PVector player2;
-PVector bomb;
-int spd = 10;
-int p1BombNum = 1;
-int p2BombNum = 1;
   
   // 0 is empty space
   // 1 is breakable wall
