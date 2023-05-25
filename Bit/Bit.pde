@@ -1,12 +1,23 @@
 public int[][] map = new int[12][12];
-  
+PVector dir;
+PVector dir1;
+PVector player1 = new PVector(0, 0);
+PVector player2 = new PVector(880, 880);
+
+int bombNum = 1;
+int bombPower = 1;
+int speed = 20;
+int lives = 1;
+
+
+
   // 0 is empty space
   // 1 is breakable wall
   // 2 is wall
   // 3 is bomb bigger powerup
   // 4 is more bomb powerup
-  // 5 is more lives\
-  // 6 is shoes
+  // 5 is more lives powerup
+  // 6 is shoes powerup
 
   
 public void setup(){
@@ -18,16 +29,12 @@ public void draw(){
   grid();
   drawPlayer();
   drawMap();
-  if (frameCount % spd == 0) {
-    updatePlayer();
+  // update snake if frameCount is a multiple of spd which is 20 at the beginning
+  if(frameCount % speed == 0) {
+    drawPlayer();
   }
-}
   
-//public void explode(){
-//  if (bomb >= 4) {
-          
-//  }
-//}
+}
 
 void grid(){
   background(200);
@@ -42,7 +49,9 @@ void grid(){
 
 
 void drawPlayer(){
-  
+  fill(0);
+  square(player1.x * 80, player1.y * 80, 80);
+  square(player2.x * 80, player2.y * 80, 80);
 }
 
 void updatePlayer(){
@@ -53,11 +62,59 @@ void drawMap(){
   
 }
 
+//Add boundaries if position + 80 has color
+
 void keyPressed(){
-  if (key == 'w') dir = new PVector(0, -1);
-  if (key == 's') dir = new PVector(0, 1);
-  if (key == 'a') dir = new PVector(-1, 0);
-  if (key == 'd') dir = new PVector(1, 0);
+  if (key == 'w' && player1.y >= 80) {
+    dir = new PVector(0, -80);
+    player1.add(dir);
+  }
+  if (key == 's' && player1.y <= 800) {
+    dir = new PVector(0, 80);
+    player1.add(dir);
+  }
+  if (key == 'a' && player1.x >= 80) { 
+    dir = new PVector(-80, 0);
+    player1.add(dir);
+  }
+  if (key == 'd' && player1.x <= 800) {
+    dir = new PVector(80, 0);
+    player1.add(dir);
+  }
+  
+  if (keyCode == UP && player2.y >= 80){
+    dir1 = new PVector(0, -80);
+    player2.add(dir1);
+  }
+  if (keyCode == DOWN && player2.y >= 800){
+    dir1 = new PVector(0, 80);
+    player2.add(dir1);
+  }
+  if (keyCode == LEFT && player2.x >= 80){ 
+    dir1 = new PVector(-80, 0);
+    player2.add(dir1);
+  }
+  if (keyCode == RIGHT && player2.x >= 800){
+    dir1 = new PVector(80, 0);
+    player2.add(dir1);
+  }
 }
 
-if(
+
+
+  
+  public void upBombNum(){
+    bombNum++;
+  }
+  
+  public void upBombPower(){
+    bombPower++;
+  }
+  
+  public void upSpeed(){
+    speed -= 2;
+  }
+  
+  public void upLives(){
+    lives++;
+  }
