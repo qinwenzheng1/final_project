@@ -46,8 +46,6 @@ public void draw(){
   drawPlayer();
   drawMap();
   // update snake if frameCount is a multiple of spd which is 20 at the beginning
-  if(frameCount % speed == 0) {
-    drawPlayer();
   if (frameCount % speed1 == 0) {
     updatePlayer1();
   }
@@ -90,7 +88,7 @@ void drawMap(){
 
 //Add boundaries if position + 80 has color
 
-oid keyPressed(){
+void keyPressed(){
   if (key == 'w' && player1.y >= 80) {
     dir = new PVector(0, -80);
     player1.add(dir);
@@ -127,18 +125,18 @@ oid keyPressed(){
 }
 
 
-  public void upBombNum(){
-    bombNum++;
-  }
+  //public void upBombNum(){
+  //  bombNum++;
+  //}
   
-  public void upBombPower(){
-    bombPower++;
-  }
+  //public void upBombPower(){
+  //  bombPower++;
+  //}
   
-  public void upSpeed(){
-    speed -= 2;
-  }
+  //public void upSpeed(){
+  //  speed -= 2;
+  //}
   
-  public void upLives(){
-    lives++;
-  }
+  //public void upLives(){
+  //  lives++;
+  //}
