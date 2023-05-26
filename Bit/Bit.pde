@@ -1,10 +1,15 @@
 public int[][] map = new int[12][12];
-PVector player1;
-PVector player2;
-PVector bomb;
-int spd = 10;
+PVector player1 = new PVector(0, 0);
+PVector player2 = new PVector(880, 880);
+int speed1 = 10;
+int speed2 = 10;
 int p1BombNum = 1;
 int p2BombNum = 1;
+PVector dir;
+PVector dir1;
+
+
+
   
   // 0 is empty space
   // 1 is breakable wall
@@ -24,8 +29,11 @@ public void draw(){
   grid();
   drawPlayer();
   drawMap();
-  if (frameCount % spd == 0) {
-    updatePlayer();
+  if (frameCount % speed1 == 0) {
+    updatePlayer1();
+  }
+  if (frameCount % speed2 == 0) {
+    updatePlayer2();
   }
 }
   
@@ -48,10 +56,16 @@ void grid(){
 
 
 void drawPlayer(){
+  fill(0);
+  square(player1.x , player1.y , 80);
+  square(player2.x , player2.y , 80);
+}
+
+void updatePlayer1(){
   
 }
 
-void updatePlayer(){
+void updatePlayer2(){
   
 }
 
@@ -60,10 +74,37 @@ void drawMap(){
 }
 
 void keyPressed(){
-  if (key == 'w') dir = new PVector(0, -1);
-  if (key == 's') dir = new PVector(0, 1);
-  if (key == 'a') dir = new PVector(-1, 0);
-  if (key == 'd') dir = new PVector(1, 0);
+  if (key == 'w' && player1.y >= 80) {
+    dir = new PVector(0, -80);
+    player1.add(dir);
+  }
+  if (key == 's' && player1.y <= 800) {
+    dir = new PVector(0, 80);
+    player1.add(dir);
+  }
+  if (key == 'a' && player1.x >= 80) {
+    dir = new PVector(-80, 0);
+    player1.add(dir);
+  }
+  if (key == 'd' && player1.x <= 800) {
+    dir = new PVector(80, 0);
+    player1.add(dir);
+  }
+  
+  if (keyCode == UP && player2.y >= 80) {
+    dir1 = new PVector(0, -80);
+    player2.add(dir1);
+  }
+  if (keyCode == DOWN && player2.y <= 800) {
+    dir1 = new PVector(0, 80);
+    player2.add(dir1);
+  }
+  if (keyCode == LEFT && player2.x >= 80) {
+    dir1 = new PVector(-80, 0);
+    player2.add(dir1);
+  }
+  if (keyCode == RIGHT && player2.x <= 800) {
+    dir1 = new PVector(80, 0);
+    player2.add(dir1);
+  }
 }
-
-if(
