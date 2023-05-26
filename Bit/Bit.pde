@@ -4,10 +4,14 @@ PVector dir1;
 PVector player1 = new PVector(0, 0);
 PVector player2 = new PVector(880, 880);
 
-int bombNum = 1;
-int bombPower = 1;
-int speed = 20;
-int lives = 1;
+int p1BombNum = 1;
+int p2BombNum = 1;
+int bombPower1 = 1;
+int bombPower2 = 1;
+int speed1 = 10;
+int speed2 = 10;
+int lives1 = 1;
+int lives2 = 1;
 
 
 
@@ -32,6 +36,11 @@ public void draw(){
   // update snake if frameCount is a multiple of spd which is 20 at the beginning
   if(frameCount % speed == 0) {
     drawPlayer();
+  if (frameCount % speed1 == 0) {
+    updatePlayer1();
+  }
+  if (frameCount % speed2 == 0) {
+    updatePlayer2();
   }
   
 }
@@ -50,11 +59,16 @@ void grid(){
 
 void drawPlayer(){
   fill(0);
-  square(player1.x * 80, player1.y * 80, 80);
-  square(player2.x * 80, player2.y * 80, 80);
+  square(player1.x , player1.y , 80);
+  square(player2.x , player2.y , 80);
 }
 
-void updatePlayer(){
+void updatePlayer1(){
+  
+
+}
+
+void updatePlayer2(){
   
 }
 
@@ -64,7 +78,7 @@ void drawMap(){
 
 //Add boundaries if position + 80 has color
 
-void keyPressed(){
+oid keyPressed(){
   if (key == 'w' && player1.y >= 80) {
     dir = new PVector(0, -80);
     player1.add(dir);
@@ -101,8 +115,6 @@ void keyPressed(){
 }
 
 
-
-  
   public void upBombNum(){
     bombNum++;
   }
