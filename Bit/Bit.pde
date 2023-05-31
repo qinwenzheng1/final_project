@@ -159,7 +159,7 @@ void keyPressed(){
       }
     }
   }
-  if (keyCode == DOWN && player2.y >= 880 - speed2){
+  if (keyCode == DOWN && player2.y <= 880 - speed2){
     if (p2y < 11){
       if (map[p2x][p2y + 1] == 0){
         dir1 = new PVector(0, speed2);
@@ -187,7 +187,7 @@ void keyPressed(){
       }
     }
   }
-  if (keyCode == RIGHT && player2.x >= 880 - speed2){
+  if (keyCode == RIGHT && player2.x <= 880 - speed2){
     if (p2x < 11){
       if (map[p2x + 1][p2y] == 0){
         dir1 = new PVector(speed2, 0);
