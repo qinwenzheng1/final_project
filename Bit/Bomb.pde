@@ -1,6 +1,6 @@
 public class Bomb {
-  int posx; // posx is a multiple of 40
-  int posy; // posy is a multiple of 40
+  int posx; // posx is an array number
+  int posy; // posy is an array number
   int bombPow;
 
   public Bomb(int bombPow, int posx, int posy) {
@@ -9,6 +9,14 @@ public class Bomb {
     this.bombPow = bombPow;
   }
 
+  // 0 is empty space
+  // 1 is breakable wall
+  // 2 is wall
+  // 3 is bomb bigger powerup
+  // 4 is more bomb powerup
+  // 5 is more lives powerup
+  // 6 is shoes powerup
+ 
   public int randomBlock() {
     int randResult = (int) random(10); // giving a result between 0 to 9
     if (randResult < 5) {

@@ -10,33 +10,37 @@ public int[][] map = { {0,0,1,1,0,1,1,1,1,0,0,0},
   {0,1,0,0,1,0,2,2,1,1,1,0},
   {0,0,1,1,1,1,0,0,1,1,1,0},
   {0,0,2,1,1,0,0,0,1,1,0,0} };
-
-PVector dir;
-PVector dir1;
-PVector player1 = new PVector(0, 0);
-PVector player2 = new PVector(880, 880);
-
-int p1x = 0;
-int p1y = 0;
-int p2x = 0;
-int p2y = 0;
-
-int p1BombNum = 1;
-int p2BombNum = 1;
-int bombPower1 = 1;
-int bombPower2 = 1;
-int speed1 = 80;
-int speed2 = 80;
-int lives1 = 1;
-int lives2 = 1;
-
-// 0 is empty space
+// pre-coded map
+  // 0 is empty space
   // 1 is breakable wall
   // 2 is wall
   // 3 is bomb bigger powerup
   // 4 is more bomb powerup
   // 5 is more lives powerup
   // 6 is shoes powerup
+  
+PVector dir;
+PVector dir1;
+PVector player1 = new PVector(0, 0); // actual position (in terms of 880)
+PVector player2 = new PVector(880, 880); // actual position (in terms of 880)
+
+// for array usage, so those are in terms of arrays
+int p1x = 0; 
+int p1y = 0;
+int p2x = 0;
+int p2y = 0;
+
+//Power Ups for both characters
+int p1BombNum = 1;
+int p2BombNum = 1;
+int bombTracker1 = 0;
+int bombTracker2 = 0;
+int bombPower1 = 1;
+int bombPower2 = 1;
+int speed1 = 80;
+int speed2 = 80;
+int lives1 = 1;
+int lives2 = 1;
 
 
 public void setup(){
@@ -52,13 +56,7 @@ public void draw(){
 
   // 0 is empty space
   // 1 is breakable wall
-  // 2 is wall
-  // 3 is bomb bigger powerup
-  // 4 is more bomb powerup
-  // 5 is more lives powerup
-  // 6 is shoes powerup
-  
-
+  // 2 is wall 
 void grid(){
   background(200);
   stroke(100);
@@ -74,6 +72,7 @@ void grid(){
 }
 
 
+//create two character in opposite corners of the map
 void drawPlayer(){
   fill(0);
   square(player1.x , player1.y , 80);
@@ -201,6 +200,17 @@ void keyPressed(){
         player2.add(dir1);
       }
     }
+  }
+  
+  // create a bomb
+  if (key == 'e' && p1BombNum > bombTracker1) {
+    bombTracker1++;
+    map[p1x][p1y] = 7; // for bomb
+    fill(#C43432);
+    square(80*p1x, 80*p1y, 80);
+    new Bomb(bombPower1, p1x, p1y);
+    
+    
   }
   
 }
