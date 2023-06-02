@@ -1,5 +1,5 @@
 public int[][] map = { {0,0,1,1,0,1,1,1,1,0,0,0},
-  {0,1,0,1,1,1,0,2,1,0,1,0},
+  {0,2,1,0,1,1,0,2,1,0,1,0},
   {1,1,1,2,1,0,0,2,1,0,1,0},
   {1,0,0,2,0,2,0,2,2,1,2,1},
   {1,1,1,2,2,2,1,1,1,1,1,0},
@@ -7,8 +7,8 @@ public int[][] map = { {0,0,1,1,0,1,1,1,1,0,0,0},
   {0,1,1,0,0,1,1,1,2,1,0,0},
   {0,1,0,1,2,2,1,1,1,1,1,0},
   {2,1,1,1,2,1,0,0,0,1,1,2},
-  {0,1,0,0,1,0,2,2,1,1,1,0},
-  {0,0,1,1,1,1,0,0,1,1,1,0},
+  {0,1,0,0,1,0,2,2,1,1,1,1},
+  {0,0,1,1,1,1,0,0,1,1,2,0},
   {0,0,2,1,1,0,0,0,1,1,0,0} };
 // pre-coded map
   // 0 is empty space
@@ -62,9 +62,14 @@ void grid(){
   stroke(100);
   for (int i = 0; i < map.length; i++) {
     for (int j = 0; j < map[0].length; j++) {
-      if (map [i][j] == 0) fill(255,255,255);
-      if (map [i][j] == 1) fill(#E7DBBB);
-      if (map [i][j] == 2) fill(#133337);
+      if (map [j][i] == 0) fill(255,255,255);
+      if (map [j][i] == 1) fill(#E7DBBB);
+      if (map [j][i] == 2) fill(#133337);
+      if (map [j][i] == 3) fill(#069606);
+      if (map [j][i] == 4) fill(#0000FF);
+      if (map [j][i] == 5) fill(#a83f39);
+      if (map [j][i] == 6) fill(#35fc35);
+      if (map [j][i] == 7) fill(#C43432);
       
       square(80*j, 80*i, 80);
     }
@@ -83,10 +88,6 @@ void drawPlayer(){
 //Add boundaries if position + 80 has color
 
 void keyPressed(){
-  p1x = (int)(player1.x / 80);
-  p1y = (int)(player1.y / 80);
-  p2x = (int)(player2.x / 80);
-  p2y = (int)(player2.y / 80);
   
   if (key == 'w' && player1.y >= speed1) {
     if (p1y > 0){
@@ -202,16 +203,28 @@ void keyPressed(){
     }
   }
   
+  p1x = (int)(player1.x / 80);
+  p1y = (int)(player1.y / 80);
+  p2x = (int)(player2.x / 80);
+  p2y = (int)(player2.y / 80);
+  
   // create a bomb
   if (key == 'e' && p1BombNum > bombTracker1) {
     bombTracker1++;
     map[p1x][p1y] = 7; // for bomb
-    fill(#C43432);
-    square(80*p1x, 80*p1y, 80);
     new Bomb(bombPower1, p1x, p1y);
     
     
   }
+  
+  if (keyCode == CONTROL && p2BombNum > bombTracker2) {
+    bombTracker2++;
+    map[p2x][p2y] = 7; // for bomb
+    new Bomb(bombPower2, p2x, p2y);
+    
+    
+  }
+  
   
 }
 
