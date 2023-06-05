@@ -2,7 +2,6 @@ public class Bomb {
   int posx; // posx is an array number
   int posy; // posy is an array number
   int bombPow;
-  int startTime;
   int steps = 0;
 
   public Bomb(int bombPow, int posx, int posy) {
