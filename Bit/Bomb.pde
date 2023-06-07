@@ -24,14 +24,12 @@ public class Bomb {
       return 0;
     } else if (randResult == 5 || randResult == 6) {
       return 3;
-    } //else if (randResult == 7) {
-      //return 4;
-    //} 
+    } else if (randResult == 7) {
+      return 4;
+    } 
     else if (randResult == 8) {
       return 5;
-    } //else if (randResult == 9) {
-      //return 6;
-    //} 
+    } 
     else {
       return 0;
     }
