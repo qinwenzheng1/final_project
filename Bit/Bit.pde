@@ -428,7 +428,7 @@ void keyPressed(){
     }
   }
   
-  if (keyCode == CONTROL && p2BombNum > bombTracker2) {
+  if (key == 'm' && p2BombNum > bombTracker2) {
     bombTracker2++;
     map[p2x][p2y] = 7; // for bomb
     if (bombDown6) {
