@@ -60,6 +60,7 @@ Bomb bomb8;
 boolean bombDown7 = false;
 boolean bombDown8 = false;
 
+//image for different blocks
 PImage breakableWallORgiftimg;
 PImage wallimg;
 PImage powerUPimg;
@@ -67,15 +68,37 @@ PImage morebombimg;
 PImage liveAddimg;
 PImage bombimg;
 
+//images of the characters (in different positions)
+PImage Player1UP;
+PImage Player1DOWN;
+PImage Player1LEFT;
+PImage Player1RIGHT;
+PImage Player2UP;
+PImage Player2DOWN;
+PImage Player2LEFT;
+PImage Player2RIGHT;
+
 
 public void setup(){
   size(1200, 1050);
+  
+  //image load for these blocks
   breakableWallORgiftimg = loadImage("breakablewallorgift.png");
   wallimg = loadImage("wall.png");
   bombimg = loadImage("bomb.png");
   powerUPimg = loadImage("PowerUP.png");
   morebombimg = loadImage("morebombs.png");
   liveAddimg = loadImage("lives.png");
+  
+  //image load for the players' characters
+  Player1UP = loadImage("Player1UP.png");
+  Player1DOWN = loadImage("Player1DOWN.png");
+  Player1LEFT = loadImage("Player1LEFT.png");
+  Player1RIGHT = loadImage("Player1RIGHT.png");
+  Player2UP = loadImage("Player2UP.png");
+  Player2DOWN = loadImage("Player2DOWN.png");
+  Player2LEFT = loadImage("Player2LEFT.png");
+  Player2RIGHT = loadImage("Player2RIGHT.png");
 }
   
 public void draw(){
