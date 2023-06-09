@@ -69,7 +69,7 @@ public class Bomb {
       break;
     }
     fill(0);
-    square(posx*80, posy*80, 80);
+    square(beginposX*80, posy*80, 80);
   }
 
   for (int beginposY = posy; beginposY <= posy + bombPow; beginposY++) {
