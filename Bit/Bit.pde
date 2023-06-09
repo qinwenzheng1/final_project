@@ -60,46 +60,46 @@ Bomb bomb8;
 boolean bombDown7 = false;
 boolean bombDown8 = false;
 
-//image for different blocks
 PImage breakableWallORgiftimg;
 PImage wallimg;
 PImage powerUPimg;
 PImage morebombimg;
 PImage liveAddimg;
 PImage bombimg;
-
-//images of the characters (in different positions)
-PImage Player1UP;
-PImage Player1DOWN;
-PImage Player1LEFT;
-PImage Player1RIGHT;
-PImage Player2UP;
-PImage Player2DOWN;
-PImage Player2LEFT;
-PImage Player2RIGHT;
+PImage player1Up;
+PImage player1Down;
+PImage player1Left;
+PImage player1Right;
+PImage player2Up;
+PImage player2Down;
+PImage player2Left;
+PImage player2Right;
+PImage trophy;
+PImage player1img;
+PImage player2img;
 
 
 public void setup(){
   size(1200, 1050);
-  
-  //image load for these blocks
   breakableWallORgiftimg = loadImage("breakablewallorgift.png");
   wallimg = loadImage("wall.png");
   bombimg = loadImage("bomb.png");
   powerUPimg = loadImage("PowerUP.png");
   morebombimg = loadImage("morebombs.png");
   liveAddimg = loadImage("lives.png");
-  
-  //image load for the players' characters
-  Player1UP = loadImage("Player1UP.png");
-  Player1DOWN = loadImage("Player1DOWN.png");
-  Player1LEFT = loadImage("Player1LEFT.png");
-  Player1RIGHT = loadImage("Player1RIGHT.png");
-  Player2UP = loadImage("Player2UP.png");
-  Player2DOWN = loadImage("Player2DOWN.png");
-  Player2LEFT = loadImage("Player2LEFT.png");
-  Player2RIGHT = loadImage("Player2RIGHT.png");
+  player1Up = loadImage("Player1UP.png");
+  player1Down = loadImage("Player1DOWN.png");
+  player1Left = loadImage("Player1LEFT.png");
+  player1Right = loadImage("Player1RIGHT.png");
+  player2Up = loadImage("Player2UP.png");
+  player2Down = loadImage("Player2DOWN.png");
+  player2Left = loadImage("Player2LEFT.png");
+  player2Right = loadImage("Player2RIGHT.png");
+  trophy = loadImage("trophy.png");
+  player1img = player1Right;
+  player2img = player2Left;
 }
+
   
 public void draw(){
   grid();
@@ -110,9 +110,9 @@ public void draw(){
   fill(0);
   text("Player 1", 980, 70);
   textSize(30);
-  fill(#808080);
+  fill(#1B4F72);
   text("Bombs: " + (p1BombNum - bombTracker1)+"", 980, 130, 0);
-  fill(#FFD700);
+  fill(#1E8449);
   text("Bomb Power: "+ bombPower1+"", 980, 180);
   fill(#FF0000);
   text("Lives: "+ lives1+"", 980, 230);
@@ -122,23 +122,25 @@ public void draw(){
   fill(0);
   text("Player 2", 980, 490);
   textSize(30);
-  fill(#808080);
+  fill(#1B4F72);
   text("Bombs: " + (p2BombNum - bombTracker2)+"", 980, 550);
-  fill(#FFD700);
+  fill(#1E8449);
   text("Bomb Power: "+bombPower2+"", 980, 600);
   fill(#FF0000);
   text("Lives: "+lives2+"", 980, 650);
   
   if(lives2 <= 0) {
-    background(255);
+    background(#FFD700);
     textSize(100);
-    text("Player 1 Wins", width/2 - 250, height/2 - 100);
+    image(trophy, width/2 - 200, 50);
+    text("Player 1 Wins", width/2 - 250, height/2 + 185);
   }
   
   if(lives1 <= 0) {
-    background(255);
+    background(#FFD700);
     textSize(100);
-    text("Player 2 Wins", width/2 - 250, height/2 - 100);
+    image(trophy, width/2 - 200, 50);
+    text("Player 2 Wins", width/2 - 250, height/2 + 185);
   }
     
   
@@ -174,12 +176,6 @@ void grid(){
       if (map [j][i] == 7) {
          image(bombimg,80*j,80*i); 
       }
-      if (map [j][i] == 8) {
-         fill(0);
-         square(j*80, i*80, 80);
-         fill(255);
-         square(j*80, i*80, 80);
-      }
     }
   }
 }
@@ -187,9 +183,8 @@ void grid(){
 
 //create two character in opposite corners of the map
 void drawPlayer(){
-  fill(0);
-  square(player1.x , player1.y , 80);
-  square(player2.x , player2.y , 80);
+  image(player1img, player1.x , player1.y);
+  image(player2img, player2.x , player2.y);
 }
 
 
@@ -209,6 +204,7 @@ void keyPressed(){
         player1.add(dir);
       }
     }
+    player1img = player1Up;
     if(bombDown1)
     bomb1.steps++;
     
@@ -234,6 +230,7 @@ void keyPressed(){
         player1.add(dir);
       }
     }
+    player1img = player1Down;
     if(bombDown1)
     bomb1.steps++;
     
@@ -259,6 +256,7 @@ void keyPressed(){
         player1.add(dir);
       }
     }
+    player1img = player1Left;
     if(bombDown1)
     bomb1.steps++;
     
@@ -284,6 +282,7 @@ void keyPressed(){
         player1.add(dir);
       }
     }
+    player1img = player1Right;
     if(bombDown1)
     bomb1.steps++;
     
@@ -310,6 +309,7 @@ void keyPressed(){
         player2.add(dir1);
       }
     }
+    player2img = player2Up;
     if(bombDown2)
     bomb2.steps++;
     
@@ -335,6 +335,7 @@ void keyPressed(){
         player2.add(dir1);
       }
     }
+    player2img = player2Down;
     if(bombDown2)
     bomb2.steps++;
     
@@ -360,6 +361,7 @@ void keyPressed(){
         player2.add(dir1);
       }
     }
+    player2img = player2Left;
     if(bombDown2)
     bomb2.steps++;
     
@@ -385,6 +387,7 @@ void keyPressed(){
         player2.add(dir1);
       }
     }
+    player2img = player2Right;
     if(bombDown2)
     bomb2.steps++;
     
@@ -562,10 +565,14 @@ speed1 = 80;
 speed2 = 80;
 lives1 = 3;
 lives2 = 3;
-Bomb bomb1;
-Bomb bomb2;
 bombDown1 = false;
 bombDown2 = false;
+bombDown3 = false;
+bombDown4 = false;
+bombDown5 = false;
+bombDown6 = false;
+bombDown7 = false;
+bombDown8 = false;
 
 player1 = new PVector(0, 0); // actual position (in terms of 880)
 player2 = new PVector(880, 880); // actual position (in terms of 880)
