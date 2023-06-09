@@ -17,7 +17,6 @@ public int[][] map = { {0,0,1,1,0,1,1,1,1,0,0,0},
   // 3 is bomb bigger powerup
   // 4 is more bomb powerup
   // 5 is more lives powerup
-  // 6 is shoes powerup
   
 PVector dir;
 PVector dir1;
@@ -61,28 +60,51 @@ Bomb bomb8;
 boolean bombDown7 = false;
 boolean bombDown8 = false;
 
+PImage breakableWallORgiftimg;
+PImage wallimg;
+PImage powerUPimg;
+PImage morebombimg;
+PImage liveAddimg;
+PImage bombimg;
+
 
 public void setup(){
-  size(1050, 1050);
-
+  size(1200, 1050);
+  breakableWallORgiftimg = loadImage("breakablewallorgift.png");
+  wallimg = loadImage("wall.png");
+  bombimg = loadImage("bomb.png");
+  powerUPimg = loadImage("PowerUP.png");
+  morebombimg = loadImage("morebombs.png");
+  liveAddimg = loadImage("lives.png");
 }
   
 public void draw(){
   grid();
   drawPlayer();
-  textSize(50);
-  text(p1BombNum - bombTracker1+"", 1000, 50);
-  textSize(50);
-  text(bombPower1+"", 1000, 100);
-  textSize(50);
-  text(lives1+"", 1000, 150);
+  fill(200);
+  rect(960, 0, 240, 1050);
+  textSize(55);
+  fill(0);
+  text("Player 1", 980, 70);
+  textSize(30);
+  fill(#808080);
+  text("Bombs: " + (p1BombNum - bombTracker1)+"", 980, 130, 0);
+  fill(#FFD700);
+  text("Bomb Power: "+ bombPower1+"", 980, 180);
+  fill(#FF0000);
+  text("Lives: "+ lives1+"", 980, 230);
   
-  textSize(50);
-  text(p2BombNum - bombTracker2+"", 1000, 250);
-  textSize(50);
-  text(bombPower2+"", 1000, 300);
-  textSize(50);
-  text(lives2+"", 1000, 350);
+  
+  textSize(55);
+  fill(0);
+  text("Player 2", 980, 490);
+  textSize(30);
+  fill(#808080);
+  text("Bombs: " + (p2BombNum - bombTracker2)+"", 980, 550);
+  fill(#FFD700);
+  text("Bomb Power: "+bombPower2+"", 980, 600);
+  fill(#FF0000);
+  text("Lives: "+lives2+"", 980, 650);
   
   if(lives2 <= 0) {
     background(255);
@@ -104,20 +126,37 @@ public void draw(){
   // 1 is breakable wall
   // 2 is wall 
 void grid(){
-  background(200);
-  stroke(100);
+  background(255);
+
   for (int i = 0; i < map.length; i++) {
     for (int j = 0; j < map[0].length; j++) {
-      if (map [j][i] == 0) fill(255,255,255);
-      if (map [j][i] == 1) fill(#E7DBBB);
-      if (map [j][i] == 2) fill(#133337);
-      if (map [j][i] == 3) fill(#069606);
-      if (map [j][i] == 4) fill(#35fc35);
-      if (map [j][i] == 5) fill(#a83f39);
-      //if (map [j][i] == 6) fill(#35fc35);
-      if (map [j][i] == 7) fill(#C43432);
-      
-      square(80*j, 80*i, 80);
+      //if (map [j][i] == 0) {
+      //   fill(255,255,255);
+      //}
+      if (map [j][i] == 1) {
+         image(breakableWallORgiftimg,80*j,80*i);
+      }
+      if (map [j][i] == 2) {
+         image(wallimg,80*j,80*i);
+      }
+      if (map [j][i] == 3) {
+         image(powerUPimg,80*j,80*i); 
+      }
+      if (map [j][i] == 4) {
+         image( morebombimg,80*j,80*i);
+      }
+      if (map [j][i] == 5) {
+         image(liveAddimg,80*j,80*i); 
+      }
+      if (map [j][i] == 7) {
+         image(bombimg,80*j,80*i); 
+      }
+      if (map [j][i] == 8) {
+         fill(0);
+         square(j*80, i*80, 80);
+         fill(255);
+         square(j*80, i*80, 80);
+      }
     }
   }
 }
@@ -134,16 +173,15 @@ void drawPlayer(){
 //Add boundaries if position + 80 has color
 
 void keyPressed(){
-  
   if (key == 'w' && player1.y >= speed1) {
     if (p1y > 0){
-      if (!(map[p1x][p1y - 1] == 1) && !(map[p1x][p1y - 1] == 2 && !(map[p1x][p1y - 1] == 7))){
+      if (!(map[p1x][p1y - 1] == 1) && !(map[p1x][p1y - 1] == 2)){
         dir = new PVector(0, -speed1);
         player1.add(dir);
       }
     }
     if (p1y == 0){
-      if (!(map[p1x][p1y] == 1) && !(map[p1x][p1y] == 2) && !(map[p1x][p1y] == 7)){
+      if (!(map[p1x][p1y] == 1) && !(map[p1x][p1y] == 2)){
         dir = new PVector(0, -speed1);
         player1.add(dir);
       }
@@ -162,13 +200,13 @@ void keyPressed(){
   }
   if (key == 's' && player1.y <= 880 - speed1) {
     if (p1y < 11){
-      if (!(map[p1x][p1y + 1] == 1) && !(map[p1x][p1y + 1] == 2) && !(map[p1x][p1y + 1] == 7)){
+      if (!(map[p1x][p1y + 1] == 1) && !(map[p1x][p1y + 1] == 2)){
         dir = new PVector(0, speed1);
         player1.add(dir);
       }
     }
     if (p1y == 11){
-      if (!(map[p1x][p1y] == 1) && !(map[p1x][p1y] == 2) && !(map[p1x][p1y] == 7)){
+      if (!(map[p1x][p1y] == 1) && !(map[p1x][p1y] == 2)){
         dir = new PVector(0, speed1);
         player1.add(dir);
       }
@@ -187,13 +225,13 @@ void keyPressed(){
   }
   if (key == 'a' && player1.x >= speed1) { 
     if (p1x > 0){
-      if (!(map[p1x - 1][p1y] == 1) && !(map[p1x - 1][p1y] == 2 && !(map[p1x - 1][p1y] == 7))){
+      if (!(map[p1x - 1][p1y] == 1) && !(map[p1x - 1][p1y] == 2)){
         dir = new PVector(-speed1, 0);
         player1.add(dir);
       }
     }
     if (p1x == 0){
-      if (!(map[p1x][p1y] == 1) && !(map[p1x][p1y] == 2 && !(map[p1x][p1y] == 7))){
+      if (!(map[p1x][p1y] == 1) && !(map[p1x][p1y] == 2)){
         dir = new PVector(-speed1, 0);
         player1.add(dir);
       }
@@ -212,13 +250,13 @@ void keyPressed(){
   }
   if (key == 'd' && player1.x <= 880 - speed1) {
     if (p1x < 11){
-      if (!(map[p1x + 1][p1y] == 1) && !(map[p1x + 1][p1y] == 2) && !(map[p1x + 1][p1y] == 7)){
+      if (!(map[p1x + 1][p1y] == 1) && !(map[p1x + 1][p1y] == 2)){
         dir = new PVector(speed1, 0);
         player1.add(dir);
       }
     }
     if (p1x == 11){
-      if (!(map[p1x][p1y] == 1) && !(map[p1x][p1y] == 2 && !(map[p1x][p1y] == 7))){
+      if (!(map[p1x][p1y] == 1) && !(map[p1x][p1y] == 2)){
         dir = new PVector(speed1, 0);
         player1.add(dir);
       }
@@ -238,13 +276,13 @@ void keyPressed(){
   
   if (keyCode == UP && player2.y >= speed2){
     if (p2y > 0){
-      if (!(map[p2x][p2y - 1] == 1) && !(map[p2x][p2y - 1] == 2) && !(map[p2x][p2y - 1] == 7)){
+      if (!(map[p2x][p2y - 1] == 1) && !(map[p2x][p2y - 1] == 2)){
         dir1 = new PVector(0, -speed2);
         player2.add(dir1);
       }
     }
     if (p2y == 0){
-      if (!(map[p2x][p2y] == 1) && !(map[p2x][p2y] == 2 && !(map[p2x][p2y] == 7))){
+      if (!(map[p2x][p2y] == 1) && !(map[p2x][p2y] == 2)){
         dir1 = new PVector(0, -speed2);
         player2.add(dir1);
       }
@@ -263,13 +301,13 @@ void keyPressed(){
   }
   if (keyCode == DOWN && player2.y <= 880 - speed2){
     if (p2y < 11){
-      if (!(map[p2x][p2y + 1] == 1) && !(map[p2x][p2y + 1] == 2) && !(map[p2x][p2y + 1] == 7)){
+      if (!(map[p2x][p2y + 1] == 1) && !(map[p2x][p2y + 1] == 2)){
         dir1 = new PVector(0, speed2);
         player2.add(dir1);
       }
     }
     if (p2y == 11){
-      if (!(map[p2x][p2y] == 1) && !(map[p2x][p2y] == 2 && !(map[p2x][p2y] == 7))){
+      if (!(map[p2x][p2y] == 1) && !(map[p2x][p2y] == 2)){
         dir1 = new PVector(0, speed2);
         player2.add(dir1);
       }
@@ -288,13 +326,13 @@ void keyPressed(){
   }
   if (keyCode == LEFT && player2.x >= speed2){ 
     if (p2x > 0){
-      if (!(map[p2x - 1][p2y] == 1) && !(map[p2x - 1][p2y] == 2) && !(map[p2x - 1][p2y] == 7)){
+      if (!(map[p2x - 1][p2y] == 1) && !(map[p2x - 1][p2y] == 2)){
         dir1 = new PVector(-speed2, 0);
         player2.add(dir1);
       }
     }
     if (p2x == 0){
-      if (!(map[p2x][p2y] == 1) && !(map[p2x][p2y] == 2) && !(map[p2x][p2y] == 7)){
+      if (!(map[p2x][p2y] == 1) && !(map[p2x][p2y] == 2)){
         dir1 = new PVector(-speed2, 0);
         player2.add(dir1);
       }
@@ -313,13 +351,13 @@ void keyPressed(){
   }
   if (keyCode == RIGHT && player2.x <= 880 - speed2){
     if (p2x < 11){
-      if (!(map[p2x + 1][p2y] == 1) && !(map[p2x + 1][p2y] == 2) && !(map[p2x + 1][p2y] == 7)){
+      if (!(map[p2x + 1][p2y] == 1) && !(map[p2x + 1][p2y] == 2)){
         dir1 = new PVector(speed2, 0);
         player2.add(dir1);
       }
     }
     if (p2x == 11){
-      if (!(map[p2x][p2y] == 1) && !(map[p2x][p2y] == 2) && !(map[p2x][p2y] == 7)){
+      if (!(map[p2x][p2y] == 1) && !(map[p2x][p2y] == 2)){
         dir1 = new PVector(speed2, 0);
         player2.add(dir1);
       }
@@ -368,19 +406,19 @@ void keyPressed(){
     bombTracker2++;
     map[p2x][p2y] = 7; // for bomb
     if (bombDown6) {
-      bomb8 = new Bomb(bombPower1, p1x, p1y);
+      bomb8 = new Bomb(bombPower2, p2x, p2y);
       bombDown8 = true;
     }
     else if (bombDown4) {
-      bomb6 = new Bomb(bombPower1, p1x, p1y);
+      bomb6 = new Bomb(bombPower2, p2x, p2y);
       bombDown6 = true;
     }
     else if (bombDown2) {
-      bomb4 = new Bomb(bombPower1, p1x, p1y);
+      bomb4 = new Bomb(bombPower2, p2x, p2y);
       bombDown4 = true;
     }
     else {
-      bomb2 = new Bomb(bombPower1, p1x, p1y);
+      bomb2 = new Bomb(bombPower2, p2x, p2y);
       bombDown2 = true;
     }
   }
@@ -474,39 +512,40 @@ void keyPressed(){
        map[p2x][p2y] = 0;
     }
     
-//    if(key == 'p') {
-//      map = { {0,0,1,1,0,1,1,1,1,0,0,0},
-//  {0,2,1,0,1,1,0,2,1,0,1,0},
-//  {1,1,1,2,1,0,0,2,1,0,1,0},
-//  {1,0,0,2,0,2,0,2,2,1,2,1},
-//  {1,1,1,2,2,2,1,1,1,1,1,0},
-//  {0,1,1,0,2,1,0,0,2,2,0,1},
-//  {0,1,1,0,0,1,1,1,2,1,0,0},
-//  {0,1,0,1,2,2,1,1,1,1,1,0},
-//  {2,1,1,1,2,1,0,0,0,1,1,2},
-//  {0,1,0,0,1,0,2,2,1,1,1,1},
-//  {0,0,1,1,1,1,0,0,1,1,2,0},
-//  {0,0,2,1,1,0,0,0,1,1,0,0} };
+    if (p1BombNum > 4) p1BombNum = 4;
+    if (p2BombNum > 4) p2BombNum = 4;
+    
+    if(key == 'p') {
+      map = new int[][] { {0,0,1,1,0,1,1,1,1,0,0,0},
+  {0,2,1,0,1,1,0,2,1,0,1,0},
+  {1,1,1,2,1,0,0,2,1,0,1,0},
+  {1,0,0,2,0,2,0,2,2,1,2,1},
+  {1,1,1,2,2,2,1,1,1,1,1,0},
+  {0,1,1,0,2,1,0,0,2,2,0,1},
+  {0,1,1,0,0,1,1,1,2,1,0,0},
+  {0,1,0,1,2,2,1,1,1,1,1,0},
+  {2,1,1,1,2,1,0,0,0,1,1,2},
+  {0,1,0,0,1,0,2,2,1,1,1,1},
+  {0,0,1,1,1,1,0,0,1,1,2,0},
+  {0,0,2,1,1,0,0,0,1,1,0,0} };
   
-//  p1BombNum = 1;
-//p2BombNum = 1;
-//bombTracker1 = 0;
-//bombTracker2 = 0;
-//bombPower1 = 1;
-//bombPower2 = 1;
-//speed1 = 80;
-//speed2 = 80;
-//lives1 = 3;
-//lives2 = 3;
-//Bomb bomb1;
-//Bomb bomb2;
-//bombDown1 = false;
-//bombDown2 = false;
+  p1BombNum = 1;
+p2BombNum = 1;
+bombTracker1 = 0;
+bombTracker2 = 0;
+bombPower1 = 1;
+bombPower2 = 1;
+speed1 = 80;
+speed2 = 80;
+lives1 = 3;
+lives2 = 3;
+Bomb bomb1;
+Bomb bomb2;
+bombDown1 = false;
+bombDown2 = false;
 
-//dir = 0;
-//dir1 = 0;
-//player1 = new PVector(0, 0); // actual position (in terms of 880)
-//player2 = new PVector(880, 880); // actual position (in terms of 880)
+player1 = new PVector(0, 0); // actual position (in terms of 880)
+player2 = new PVector(880, 880); // actual position (in terms of 880)
       
-//    }
+    }
 }
