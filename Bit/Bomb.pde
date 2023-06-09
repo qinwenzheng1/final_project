@@ -2,6 +2,7 @@ public class Bomb {
   int posx; // posx is an array number
   int posy; // posy is an array number
   int bombPow;
+  int steps = 0;
 
   public Bomb(int bombPow, int posx, int posy) {
     this.posx = posx;
@@ -25,51 +26,75 @@ public class Bomb {
       return 3;
     } else if (randResult == 7) {
       return 4;
-    } else if (randResult == 8) {
+    } 
+    else if (randResult == 8) {
       return 5;
-    } else if (randResult == 9) {
-      return 6;
-    } else {
+    } 
+    else {
       return 0;
     }
   }
 
-  // we are going to add deduce opponent's number of lives part later
   public void explode() {
-    for (int beginposX = posx; beginposX <= posx + bombPow; beginposX++) {
-      if (beginposX >= map.length || map[beginposX][posy] == 2) {
-        break;
-      } else if (map[beginposX][posy] == 1) {
-        map[beginposX][posy] = randomBlock();
-        break;
-      }
+  for (int beginposX = posx; beginposX <= posx + bombPow; beginposX++) {
+    if (beginposX == p1x && posy == p1y) {
+      lives1--;
     }
-
-    for (int beginposX = posx; beginposX >= posx - bombPow; beginposX--) {
-      if (beginposX < 0 || map[beginposX][posy] == 2) {
-        break;
-      } else if (map[beginposX][posy] == 1) {
-        map[beginposX][posy] = randomBlock();
-        break;
-      }
+    if (beginposX == p2x && posy == p2y) {
+      lives2--;
     }
-
-    for (int beginposY = posy; beginposY <= posy + bombPow; beginposY++) {
-      if (beginposY >= map[0].length || map[posx][beginposY] == 2) {
-        break;
-      } else if (map[posx][beginposY] == 1) {
-        map[posx][beginposY] = randomBlock();
-        break;
-      }
-    }
-
-    for (int beginposY = posy; beginposY >= posy - bombPow; beginposY--) {
-      if (beginposY < 0 || map[posx][beginposY] == 2) {
-        break;
-      } else if (map[posx][beginposY] == 1) {
-        map[posx][beginposY] = randomBlock();
-        break;
-      }
+    if (beginposX >= map.length || map[beginposX][posy] == 2) {
+      break;
+    } else if (map[beginposX][posy] == 1) {
+      map[beginposX][posy] = randomBlock();
+      break;
     }
   }
+
+  for (int beginposX = posx; beginposX >= posx - bombPow; beginposX--) {
+    if (beginposX == p1x && posy == p1y) {
+      lives1--;
+    }
+    if (beginposX == p2x && posy == p2y) {
+      lives2--;
+    }
+    if (beginposX < 0 || map[beginposX][posy] == 2) {
+      break;
+    } else if (map[beginposX][posy] == 1) {
+      map[beginposX][posy] = randomBlock();
+      break;
+    }
+  }
+
+  for (int beginposY = posy; beginposY <= posy + bombPow; beginposY++) {
+    if (posx == p1x && beginposY == p1y) {
+      lives1--;
+    }
+    if (posx == p2x && beginposY == p2y) {
+      lives2--;
+    }
+    if (beginposY >= map[0].length || map[posx][beginposY] == 2) {
+      break;
+    } else if (map[posx][beginposY] == 1) {
+      map[posx][beginposY] = randomBlock();
+      break;
+    }
+  }
+
+  for (int beginposY = posy; beginposY >= posy - bombPow; beginposY--) {
+    if (posx == p1x && beginposY == p1y) {
+      lives1--;
+    }
+    if (posx == p2x && beginposY == p2y) {
+      lives2--;
+    }
+    if (beginposY < 0 || map[posx][beginposY] == 2) {
+      break;
+    } else if (map[posx][beginposY] == 1) {
+      map[posx][beginposY] = randomBlock();
+      break;
+    }
+  }
+}
+  
 }
