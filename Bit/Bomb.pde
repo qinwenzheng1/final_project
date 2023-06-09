@@ -37,6 +37,7 @@ public class Bomb {
 
   public void explode() {
   for (int beginposX = posx; beginposX <= posx + bombPow; beginposX++) {
+    
     if (beginposX == p1x && posy == p1y) {
       lives1--;
     }
@@ -49,9 +50,12 @@ public class Bomb {
       map[beginposX][posy] = randomBlock();
       break;
     }
+    fill(0);
+    square(beginposX*80, posy*80, 80);
   }
 
   for (int beginposX = posx; beginposX >= posx - bombPow; beginposX--) {
+    
     if (beginposX == p1x && posy == p1y) {
       lives1--;
     }
@@ -64,9 +68,12 @@ public class Bomb {
       map[beginposX][posy] = randomBlock();
       break;
     }
+    fill(0);
+    square(posx*80, posy*80, 80);
   }
 
   for (int beginposY = posy; beginposY <= posy + bombPow; beginposY++) {
+    
     if (posx == p1x && beginposY == p1y) {
       lives1--;
     }
@@ -79,9 +86,13 @@ public class Bomb {
       map[posx][beginposY] = randomBlock();
       break;
     }
+    
+    fill(0);
+    square(posx*80, beginposY*80, 80);
   }
 
   for (int beginposY = posy; beginposY >= posy - bombPow; beginposY--) {
+    
     if (posx == p1x && beginposY == p1y) {
       lives1--;
     }
@@ -94,6 +105,8 @@ public class Bomb {
       map[posx][beginposY] = randomBlock();
       break;
     }
+    fill(0);
+    square(posx*80, beginposY*80, 80);
   }
 }
   
