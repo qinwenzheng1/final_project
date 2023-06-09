@@ -19,15 +19,15 @@ public class Bomb {
   // 6 is shoes powerup
  
   public int randomBlock() {
-    int randResult = (int) random(10); // giving a result between 0 to 9
-    if (randResult < 5) {
+    int randResult = (int) random(12); // giving a result between 0 to 9
+    if (randResult < 8) {
       return 0;
-    } else if (randResult == 5 || randResult == 6) {
+    } else if (randResult == 8) {
       return 3;
-    } else if (randResult == 7) {
+    } else if (randResult == 9) {
       return 4;
     } 
-    else if (randResult == 8) {
+    else if (randResult == 10 || randResult == 11) {
       return 5;
     } 
     else {
